@@ -33,17 +33,17 @@ endif
 LDFLAGS = $(shell dpkg-buildflags --get LDFLAGS)
 
 # The archdir map has been copied from openjdk-6's debian/rules.
-JAVA_ARCHDIR = $(shell /usr/share/javahelper/java-arch.sh $(DEB_BUILD_ARCH))
-ifeq (,$(JAVA_ARCHDIR))
-	JAVA_ARCHDIR = $(DEB_BUILD_ARCH)
-endif
-JAVA_HOME = /usr/lib/jvm/default-java
-JAVA_LIBDIR = $(JAVA_HOME)/jre/lib/$(JAVA_ARCHDIR)/server
-
-JAVAC = $(JAVA_HOME)/bin/javac
-JAR = $(JAVA_HOME)/bin/jar
-JAVA_CPPFLAGS = -I$(JAVA_HOME)/include
-JAVA_LDFLAGS = -L$(JAVA_LIBDIR) -Wl,-rpath -Wl,$(JAVA_LIBDIR)
+#JAVA_ARCHDIR = $(shell /usr/share/javahelper/java-arch.sh $(DEB_BUILD_ARCH))
+#ifeq (,$(JAVA_ARCHDIR))
+#	JAVA_ARCHDIR = $(DEB_BUILD_ARCH)
+#endif
+#JAVA_HOME = /usr/lib/jvm/default-java
+#JAVA_LIBDIR = $(JAVA_HOME)/jre/lib/$(JAVA_ARCHDIR)/server
+#
+#JAVAC = $(JAVA_HOME)/bin/javac
+#JAR = $(JAVA_HOME)/bin/jar
+#JAVA_CPPFLAGS = -I$(JAVA_HOME)/include
+#JAVA_LDFLAGS = -L$(JAVA_LIBDIR) -Wl,-rpath -Wl,$(JAVA_LIBDIR)
 
 confflags = --host=$(DEB_HOST_GNU_TYPE) \
 			--build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr \
@@ -87,6 +87,44 @@ confflags += --disable-xmms
 
 # protobuf-compiler >= 3.0.0 and libgrpc++ are required for the grpc plugin.
 confflags += --disable-grpc
+
+### Locally disabled plugins (rpv)
+confflags += \
+--disable-amqp \
+--disable-barometer \
+--disable-cpusleep \
+--disable-dbi \
+--disable-dns \
+--disable-dpdkstat \
+--disable-gmond \
+--disable-gps \
+--disable-intel_rdt \
+--disable-ipmi \
+--disable-iptables \
+--disable-java \
+--disable-lvm \
+--disable-modbus \
+--disable-mqtt \
+--disable-netlink \
+--disable-notify_desktop \
+--disable-notify_email \
+--disable-nut \
+--disable-onewire \
+--disable-pinba \
+--disable-ping \
+--disable-python \
+--disable-redis \
+--disable-sensors \
+--disable-sigrok \
+--disable-smart \
+--disable-snmp \
+--disable-tokyotyrant \
+--disable-turbostat \
+--disable-varnish \
+--disable-virt \
+--disable-write_kafka \
+--disable-write_redis \
+--disable-write_riemann
 
 # These plugins are Linux-specific.
 ifneq (,$(filter kfreebsd-i386 kfreebsd-amd64, $(DEB_BUILD_ARCH)))
@@ -189,19 +227,26 @@ build-stamp:
 	
 	# This is a work-around for #474087 (broken openipmi .pc files).
 	mkdir debian/pkgconfig
-	sed -re 's/^(Requires:.*) pthread(.*)$$/\1\2/' \
-		/usr/lib/pkgconfig/OpenIPMIpthread.pc \
-		> debian/pkgconfig/OpenIPMIpthread.pc
+	#sed -re 's/^(Requires:.*) pthread(.*)$$/\1\2/' \
+	#	/usr/lib/pkgconfig/OpenIPMIpthread.pc \
+	#	> debian/pkgconfig/OpenIPMIpthread.pc
 	
+#		JAVAC="$(JAVAC)" JAR="$(JAR)" JAVA_CPPFLAGS="$(JAVA_CPPFLAGS)" \
+#		JAVA_LDFLAGS="$(JAVA_LDFLAGS)" \
+#	pwd
+#	echo $(CURDIR)
 	PKG_CONFIG_PATH="$(CURDIR)/debian/pkgconfig:$$PKG_CONFIG_PATH" \
 	./configure $(confflags) CPPFLAGS="$(CPPFLAGS)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" \
-		JAVAC="$(JAVAC)" JAR="$(JAR)" JAVA_CPPFLAGS="$(JAVA_CPPFLAGS)" \
-		JAVA_LDFLAGS="$(JAVA_LDFLAGS)" \
 		|| ( status=$$?; cat config.log; exit $$status )
-
+	
+#	echo $(MAKE)
 	$(MAKE)
 	dh_auto_test
 	perl ./debian/bin/check_plugins.pl
+
+
+
+
 	
 	touch build-stamp
 
@@ -250,6 +295,13 @@ install-arch: build
 	rm -f debian/tmp/usr/lib/collectd/*.la
 	rm -f debian/tmp/usr/lib/libcollectdclient.la
 	rm -f debian/tmp/etc/collectd.conf
+
+	mkdir -p debian/tmp/usr/lib/collectd/utils \
+		debian/tmp/etc/collectd
+	cp contrib/migrate-3-4.px debian/tmp/usr/lib/collectd/utils/
+	cp contrib/migrate-4-5.px debian/tmp/usr/lib/collectd/utils/
+	cp contrib/rrd_filter.px  debian/tmp/usr/lib/collectd/utils/
+	cp debian/collection.conf debian/tmp/etc/collectd/
 	
 	dh_install -a --sourcedir=$(CURDIR)/debian/tmp --fail-missing
 	
@@ -263,7 +315,7 @@ binary-indep: install-indep
 	dh_testdir
 	dh_testroot
 	dh_installchangelogs -i ChangeLog
-	dh_installdocs -A -i debian/README.Debian AUTHORS README TODO
+	dh_installdocs -A -i debian/README.Debian AUTHORS README
 	dh_installexamples -i contrib/examples/myplugin.c \
 		contrib/examples/MyPlugin.pm
 	dh_compress -i -Xexamples/
@@ -277,7 +329,7 @@ binary-arch: build install-arch
 	dh_testdir
 	dh_testroot
 	dh_installchangelogs -a ChangeLog
-	dh_installdocs -A -a debian/README.Debian AUTHORS README TODO
+	dh_installdocs -A -a debian/README.Debian AUTHORS README
 	dh_installdocs -a debian/NEWS.Debian debian/README.Debian.plugins
 	dh_installexamples -a contrib/collectd2html.pl contrib/collection.cgi \
 		contrib/collection3/ contrib/php-collection/ \
