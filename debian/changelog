@@ -1,4 +1,13 @@
-collectd (5.6.2-rpv4+deb8) UNRELEASED; urgency=medium
+collectd (5.6.2-rpv6+deb8) unstable; urgency=medium
+
+  + Enabled dbi plugin
+  * Allowed custom plugin name in 'dbi', 'oracle' and 'postgresql'
+    plugins (per Database block).
+  * memcached: Fix CPU usage reporting
+
+ -- root <pavel2000@ngs.ru>  Fri, 20 Oct 2017 16:43:44 +0000
+
+collectd (5.6.2-rpv4+deb8) unstable; urgency=medium
 
   curl_xml: Fix memleak
 

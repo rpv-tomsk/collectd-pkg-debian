@@ -93,7 +93,6 @@ confflags += \
 --disable-amqp \
 --disable-barometer \
 --disable-cpusleep \
---disable-dbi \
 --disable-dns \
 --disable-dpdkstat \
 --disable-gmond \
