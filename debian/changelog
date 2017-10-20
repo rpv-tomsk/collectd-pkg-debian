@@ -1,4 +1,47 @@
-collectd (5.6.1-2) UNRELEASED; urgency=medium
+collectd (5.6.2-rpv4+deb8) UNRELEASED; urgency=medium
+
+  curl_xml: Fix memleak
+
+  memcached: Disable reporting of connections.listen_disabled
+  memcached: Report connections rate
+  memcached: Fix hitratio reporting
+  memcached: Persistent connections with IO timeouts
+
+  network: Fix endless loop DOS in parse_packet()
+  network: Fix free() before use
+
+  openvpn: reworked status file parser
+  openvpn: Fixed openvpn_read() on empty configuration.
+
+  rrdtool plugin: Fix flushing
+
+ -- root <pavel2000@ngs.ru>  Thu, 21 Sep 2017 07:02:16 +0000
+
+collectd (5.6.2-rpv2+deb8) unstable; urgency=medium
+
+  * Merged branch:
+    - package-5.6-processes-ops-metric
+
+ -- Pavel V. Rochnyack <pavel2000@ngs.ru>  Mon, 26 Oct 2016 06:18:00 +0000
+
+collectd (5.6.2-rpv1) unstable; urgency=medium
+
+  * Simplified version (many plugins disabled)
+  * Disabled systemd support / requirement
+  * Merged branches:
+    - package-5.6-curl-json
+    - package-5.6-curl-xml
+    - package-5.6-filecount-pluginname-1979
+    - package-5.6-memcached
+    - package-5.6-nginx-connections-failed
+    - package-5.6-processes-1989
+    - package-5.6-sighup-reload-types-1733
+    - package-5.6-tail-dstype-latency-master
+    - package-5.6-tail-plugins-pluginname
+
+ -- Pavel V. Rochnyack <pavel2000@ngs.ru>  Mon, 24 Oct 2016 11:15:02 +0000
+
+collectd (5.6.1-2) unstable; urgency=medium
 
   * debian/control:
     - Add libdevstat-dev and libgeom-dev to kfreebsd build-deps, as they're
