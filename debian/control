@@ -31,7 +31,7 @@ Build-Depends: debhelper (>= 7.0.50~), dpkg-dev (>= 1.14.10), po-debconf, dh-sys
  libmemcached-dev,
 # libmodbus-dev,
 # libmosquitto-dev,
-# libmnl-dev [linux-any],
+ libmnl-dev [linux-any],
 # libnotify-dev,
 # libopenipmi-dev,
 # liboping-dev (>= 0.3.3),
@@ -39,7 +39,7 @@ Build-Depends: debhelper (>= 7.0.50~), dpkg-dev (>= 1.14.10), po-debconf, dh-sys
 # libpcap0.8-dev | libpcap-dev,
  libperl-dev,
  libpq-dev,
-# libprotobuf-c-dev,
+ libprotobuf-c-dev,
 # librabbitmq-dev,
 # librdkafka-dev,
 # libriemann-client-dev,
@@ -60,7 +60,7 @@ Build-Depends: debhelper (>= 7.0.50~), dpkg-dev (>= 1.14.10), po-debconf, dh-sys
  libyajl-dev,
  linux-libc-dev (>= 2.6.25-4) [linux-any] | linux-libc-dev (<< 2.6.25-1) [linux-any],
 # default-jdk [!hppa !sparc !kfreebsd-i386 !kfreebsd-amd64],
-# protobuf-c-compiler,
+ protobuf-c-compiler,
 # python-dev,
 # riemann-c-client
 Build-Conflicts: libpthread-dev, libhal-dev
