@@ -110,8 +110,6 @@ confflags += \
 --disable-nut \
 --disable-onewire \
 --disable-ping \
---disable-python \
---disable-redis \
 --disable-sensors \
 --disable-sigrok \
 --disable-smart \

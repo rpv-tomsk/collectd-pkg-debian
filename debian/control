@@ -22,7 +22,7 @@ Build-Depends: debhelper (>= 7.0.50~), dpkg-dev (>= 1.14.10), po-debconf, dh-sys
 # libgcrypt20-dev,
  libglib2.0-dev,
 # libgps-dev,
-# libhiredis-dev,
+ libhiredis-dev,
 # libi2c-dev,
 # libkvm-dev [kfreebsd-any],
 # libldap2-dev,
@@ -61,7 +61,7 @@ Build-Depends: debhelper (>= 7.0.50~), dpkg-dev (>= 1.14.10), po-debconf, dh-sys
  linux-libc-dev (>= 2.6.25-4) [linux-any] | linux-libc-dev (<< 2.6.25-1) [linux-any],
 # default-jdk [!hppa !sparc !kfreebsd-i386 !kfreebsd-amd64],
  protobuf-c-compiler,
-# python-dev,
+ python-dev,
 # riemann-c-client
 Build-Conflicts: libpthread-dev, libhal-dev
 Standards-Version: 3.9.8
