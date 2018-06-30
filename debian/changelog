@@ -1,3 +1,24 @@
+collectd (5.6.2-rpv12+deb8) stable; urgency=medium
+
+  * memcached: Check for closed connection to avoid deadloop
+  * notify_email: Include all notification parameters into email
+  * redis plugin: Merged code from collectd-5.9 (unreleased master branch)
+  * redis plugin: Applied local patches:
+
+    Report bandwidth usage as `redis_octets`, not `total_bytes`
+    Metric `operations_per_second` not reported as it duplicates `total_operations`.
+    Option 'ReportCommandStats' is true by default.
+
+  + Added new types to types.db:
+
+    redis_octets            rx:DERIVE:0:U, tx:DERIVE:0:U
+    redis_command_cputime   value:DERIVE:0:U
+    commands                value:DERIVE:0:U
+
+  Based on package-5.6 revision 67a6d808d91b2cec4266801a5991a3aade60114f
+
+ -- root <pavel2000@ngs.ru>  Sat, 30 Jun 2018 12:35:44 +0000
+
 collectd (5.6.2-rpv10+deb8) unstable; urgency=medium
 
   + Enabled python plugin
@@ -8,7 +29,8 @@ collectd (5.6.2-rpv10+deb8) unstable; urgency=medium
 collectd (5.6.2-rpv9+deb8) unstable; urgency=medium
 
   * processes plugin: Add support for Linux Delay Accounting
-  * Collectd package-5.6 branch revision e9541a1f02501503ee644b4d51373808d861218e
+
+  Based on package-5.6 revision e9541a1f02501503ee644b4d51373808d861218e
 
  -- root <pavel2000@ngs.ru>  Fri, 08 Dec 2017 05:42:32 +0000
 
