@@ -8,6 +8,7 @@ collectd (5.6.2-rpv10+deb8) unstable; urgency=medium
 collectd (5.6.2-rpv9+deb8) unstable; urgency=medium
 
   * processes plugin: Add support for Linux Delay Accounting
+  * Collectd package-5.6 branch revision e9541a1f02501503ee644b4d51373808d861218e
 
  -- root <pavel2000@ngs.ru>  Fri, 08 Dec 2017 05:42:32 +0000
 
