@@ -106,7 +106,6 @@ confflags += \
 --disable-mqtt \
 --disable-netlink \
 --disable-notify_desktop \
---disable-notify_email \
 --disable-nut \
 --disable-onewire \
 --disable-ping \
