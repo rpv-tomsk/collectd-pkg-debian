@@ -29,6 +29,7 @@ Build-Depends: debhelper (>= 7.0.50~), dpkg-dev (>= 1.14.10), po-debconf, dh-sys
 # liblua5.3-dev,
 # liblvm2-dev [linux-any],
  libmemcached-dev,
+ libmicrohttpd-dev,
 # libmodbus-dev,
 # libmosquitto-dev,
  libmnl-dev [linux-any],

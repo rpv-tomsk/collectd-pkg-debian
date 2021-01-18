@@ -1,3 +1,9 @@
+collectd (5.6.2-rpv14+deb8) stable; urgency=medium
+
+  * Added write_prometheus plugin
+
+ -- root <root@test01.cz5278>  Mon, 18 Jan 2021 18:15:36 +0000
+
 collectd (5.6.2-rpv13+deb8) stable; urgency=medium
 
   * notify_email: Enable plugin
